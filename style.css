@@ -231,3 +231,21 @@ footer .container {
         font-size: 2.5rem;
     }
 }
+#form-message {
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 5px;
+  display: none;
+}
+
+#form-message.success {
+  background-color: #4CAF50;
+  color: white;
+  display: block;
+}
+
+#form-message.error {
+  background-color: #f44336;
+  color: white;
+  display: block;
+}
