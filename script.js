@@ -40,3 +40,45 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+// Contact form submission
+const contactForm = document.getElementById('contact-form');
+const formMessage = document.getElementById('form-message');
+
+if (contactForm) {
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      message: document.getElementById('message').value
+    };
+
+    try {
+      const response = await fetch('http://localhost:3001/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+      
+      if (response.ok) {
+        showFormMessage('Message sent successfully!', 'success');
+        contactForm.reset();
+      } else {
+        showFormMessage(result.error || 'Error sending message', 'error');
+      }
+    } catch (error) {
+      showFormMessage('Network error. Please try again.', 'error');
+    }
+  });
+}
+
+function showFormMessage(text, type) {
+  formMessage.textContent = text;
+  formMessage.className = type;
+  setTimeout(() => formMessage.textContent = '', 5000);
+}
